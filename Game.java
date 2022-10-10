@@ -15,12 +15,17 @@ import java.awt.GridLayout;
 
 
 class Game {
+
+int playerHP;
+String weapon;  
+
 JFrame window;
 Container con;
-JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel;
-JLabel titleNameLabel;
+JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel;
+JLabel titleNameLabel, hpLabel, hpLabelNumber, weaponLabel, weaponLabelNumber;
 Font titleFont = new Font("Times New Roman", Font.PLAIN, 90); //Setter font
 Font normalFont = new Font("Times New Roman", Font.PLAIN, 30); //Setter font for startknapp
+Font playerPanelFont = new Font("Times New Roman", Font.PLAIN, 25);
 JButton startButton, valg1, valg2, valg3, valg4 ;
 JTextArea mainTextArea;
 
@@ -78,7 +83,7 @@ TitleScreenHandler tsHandler = new TitleScreenHandler();
         mainTextPanel.setBackground(Color.black);
         con.add(mainTextPanel);
         
-        mainTextArea = new JTextArea("Her er teksten"); //Input boks for å skrive ting i
+        mainTextArea = new JTextArea("Hello"); //Input boks for å skrive ting i
         mainTextArea.setBounds(100, 100, 600, 250);
         mainTextArea.setBackground(Color.black);
         mainTextArea.setForeground(Color.white);
@@ -113,13 +118,56 @@ TitleScreenHandler tsHandler = new TitleScreenHandler();
         valg3.setFocusPainted(false);
         choiceButtonPanel.add(valg3);
 
-        valg4 = new JButton("valg 4"); //Lager en knapp
+        valg4 = new JButton("valg 4"); //Lager en knapp-
         valg4.setBackground(Color.black);
         valg4.setForeground(Color.white);
         valg4.setFont(normalFont);
         valg4.setFocusPainted(false);
         choiceButtonPanel.add(valg4);
+
+        playerPanel = new JPanel();
+        playerPanel.setBounds(100, 15, 600, 50);
+        playerPanel.setBackground(Color.black);
+        playerPanel.setLayout(new GridLayout(1,4));
+        playerPanel.setVisible(true);
+        con.add(playerPanel);
+
+        hpLabel = new JLabel("HP:");
+        hpLabel.setFont(playerPanelFont);
+        hpLabel.setForeground(Color.white);
+        playerPanel.add(hpLabel);
+
+        hpLabelNumber = new JLabel();
+        hpLabelNumber.setFont(playerPanelFont);
+        hpLabelNumber.setForeground(Color.white);
+        playerPanel.add(hpLabelNumber);
+
+        weaponLabel = new JLabel("Weapon:");
+        weaponLabel.setFont(playerPanelFont);
+        weaponLabel.setForeground(Color.white);
+        playerPanel.add(weaponLabel);
+
+        weaponLabelNumber = new JLabel();
+        weaponLabelNumber.setFont(playerPanelFont);
+        weaponLabelNumber.setForeground(Color.white);
+        playerPanel.add(weaponLabelNumber);
+        
+
+        playerStats();
+
     }
+
+
+    public void playerStats(){
+        playerSetup spiller = new playerSetup(15);
+        weapon starterWeapon = new weapon("Stick", 5);
+        playerHP = spiller.getHp();
+        weapon = starterWeapon.getWeapon();
+        weaponLabelNumber.setText(weapon);
+        hpLabelNumber.setText("" + playerHP);
+    }
+
+
 
     public class TitleScreenHandler implements ActionListener{
 
